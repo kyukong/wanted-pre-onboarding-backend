@@ -16,6 +16,9 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Job {
 
+	private static final int DESCRIPTION_LENGTH = 1_000;
+	private static final int COMPENSATION_MAXIMUM = 0;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -26,7 +29,44 @@ public class Job {
 	private String position;
 	private int compensation;
 
-	@Column(length = 1000)
+	@Column(length = DESCRIPTION_LENGTH)
 	private String description;
 	private String techStack;
+
+	public Job(Company company, String position, int compensation, String description, String techStack) {
+		validateCompensationIsOverThanStandard(compensation);
+		validateDescriptionLengthIsUnderThanStandard(description);
+
+		this.company = company;
+		this.position = position;
+		this.compensation = compensation;
+		this.description = description;
+		this.techStack = techStack;
+	}
+
+	public void assignCompany(Company company) {
+		this.company = company;
+	}
+
+	public void update(String position, int compensation, String description, String techStack) {
+		validateCompensationIsOverThanStandard(compensation);
+		validateDescriptionLengthIsUnderThanStandard(description);
+
+		this.position = position;
+		this.compensation = compensation;
+		this.description = description;
+		this.techStack = techStack;
+	}
+
+	private void validateCompensationIsOverThanStandard(int compensation) {
+		if (compensation <= COMPENSATION_MAXIMUM) {
+			throw new IllegalArgumentException(String.format("채용 보상금은 %d원 이상이어야 합니다.", COMPENSATION_MAXIMUM));
+		}
+	}
+
+	private void validateDescriptionLengthIsUnderThanStandard(String description) {
+		if (description.length() > DESCRIPTION_LENGTH) {
+			throw new IllegalArgumentException(String.format("채용 공고의 길이는 %d자 이하로 작성해주세요.", DESCRIPTION_LENGTH));
+		}
+	}
 }

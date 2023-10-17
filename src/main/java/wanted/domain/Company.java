@@ -20,4 +20,10 @@ public class Company {
 	private String name;
 	private String country;
 	private String region;
+
+	public Company(String name, String country, String region) {
+		this.name = name;
+		this.country = country;
+		this.region = region;
+	}
 }
