@@ -3,8 +3,12 @@ spring:
     username: wanted
     password: password
     url: jdbc:mysql://localhost:3306/wanted?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+  sql:
+    init:
+      mode: always
   jpa:
-    hibernate.ddl-auto: create
+    hibernate:
+      ddl-auto: validate
     properties:
       hibernate:
         show_sql: true
