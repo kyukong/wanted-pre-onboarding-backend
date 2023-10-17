@@ -176,26 +176,30 @@ GET /jobs/1
 HTTP/1.1 200 OK
 
 {
-	"jobId" : 1,
-	"companyId" : 1,
-	"companyName" : "원티드랩",
-	"country" : "한국",
-	"region" : "서울",
-	"position" : "백엔드 주니어 개발자",
-	"compensation" : 1500000,
-	"description" : "원티드 랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..",
-	"techStack" : "Python"
+  "jobId" : 1,
+  "companyId" : 1,
+  "companyName" : "원티드랩",
+  "country" : "한국",
+  "region" : "서울",
+  "position" : "백엔드 주니어 개발자",
+  "compensation" : 1500000,
+  "description" : "원티드 랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..",
+  "techStack" : "Python",
+  "others" : [
+    2, 3, 4, ...
+  ]
 }
 ```
 
-| 필드           | 타입      | 설명       |
-|--------------|---------|----------|
-| jobId        | Integer | 채용 공고 id |
-| companyId    | Integer | 회사 id    |
-| companyName  | String  | 회사명      |
-| country      | String  | 국가       |
-| region       | String  | 지역       |
-| position     | String  | 채용 포지션   |
-| compensation | Integer | 채용 보상금   |
-| description  | String  | 채용 내용    |
-| techStack    | String  | 사용 기술    |
+| 필드           | 타입      | 설명              |
+|--------------|---------|-----------------|
+| jobId        | Integer | 채용 공고 id        |
+| companyId    | Integer | 회사 id           |
+| companyName  | String  | 회사명             |
+| country      | String  | 국가              |
+| region       | String  | 지역              |
+| position     | String  | 채용 포지션          |
+| compensation | Integer | 채용 보상금          |
+| description  | String  | 채용 내용           |
+| techStack    | String  | 사용 기술           |
+| others       | List    | 회사가 올린 다른 채용 공고 |
