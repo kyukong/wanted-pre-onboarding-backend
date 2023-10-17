@@ -14,6 +14,7 @@ import wanted.domain.Job;
 import wanted.domain.JobRepository;
 import wanted.service.dto.request.JobSaveRequest;
 import wanted.service.dto.request.JobUpdateRequest;
+import wanted.service.dto.request.PagingRequest;
 import wanted.service.dto.response.JobDetailResponse;
 import wanted.service.dto.response.JobResponse;
 import wanted.service.dto.response.PagingResponse;
@@ -51,8 +52,8 @@ public class JobService {
 		jobRepository.delete(savedJob);
 	}
 
-	public PagingResponse<JobResponse> findAll(int page, int size) {
-		Page<Job> jobs = jobRepository.findAll(PageRequest.of(page - 1, size));
+	public PagingResponse<JobResponse> findAll(PagingRequest request) {
+		Page<Job> jobs = jobRepository.findAll(PageRequest.of(request.getPage() - 1, request.getSize()));
 		List<JobResponse> responses = jobs.getContent().stream()
 			.map(JobResponse::from)
 			.toList();
