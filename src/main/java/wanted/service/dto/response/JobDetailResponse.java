@@ -1,5 +1,7 @@
 package wanted.service.dto.response;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import wanted.domain.Job;
@@ -17,8 +19,9 @@ public class JobDetailResponse {
 	private final int compensation;
 	private final String description;
 	private final String techStack;
+	private final List<Long> others;
 
-	public static JobDetailResponse from(Job job) {
+	public static JobDetailResponse of(Job job, List<Long> others) {
 		return new JobDetailResponse(
 			job.getId(),
 			job.getCompany().getId(),
@@ -28,7 +31,8 @@ public class JobDetailResponse {
 			job.getPosition(),
 			job.getCompensation(),
 			job.getDescription(),
-			job.getTechStack()
+			job.getTechStack(),
+			others
 		);
 	}
 }
