@@ -33,15 +33,20 @@ public class Job {
 	private String description;
 	private String techStack;
 
-	public Job(Company company, String position, int compensation, String description, String techStack) {
+	public Job(Long id, Company company, String position, int compensation, String description, String techStack) {
 		validateCompensationIsOverThanStandard(compensation);
 		validateDescriptionLengthIsUnderThanStandard(description);
 
+		this.id = id;
 		this.company = company;
 		this.position = position;
 		this.compensation = compensation;
 		this.description = description;
 		this.techStack = techStack;
+	}
+
+	public Job(Company company, String position, int compensation, String description, String techStack) {
+		this(null, company, position, compensation, description, techStack);
 	}
 
 	public void assignCompany(Company company) {

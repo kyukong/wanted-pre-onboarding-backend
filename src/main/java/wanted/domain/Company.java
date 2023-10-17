@@ -21,9 +21,14 @@ public class Company {
 	private String country;
 	private String region;
 
-	public Company(String name, String country, String region) {
+	public Company(Long id, String name, String country, String region) {
+		this.id = id;
 		this.name = name;
 		this.country = country;
 		this.region = region;
+	}
+
+	public Company(String name, String country, String region) {
+		this(null, name, country, region);
 	}
 }

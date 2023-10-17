@@ -57,7 +57,7 @@ public class JobService {
 		List<JobResponse> responses = jobs.getContent().stream()
 			.map(JobResponse::from)
 			.toList();
-		return PagingResponse.of(jobs.getNumber(), jobs.getSize(), jobs.hasNext(), responses);
+		return PagingResponse.of(request.getPage(), request.getSize(), jobs.hasNext(), responses);
 	}
 
 	public JobDetailResponse findById(Long id) {
