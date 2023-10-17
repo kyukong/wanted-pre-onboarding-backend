@@ -12,6 +12,8 @@ import wanted.domain.Company;
 import wanted.domain.CompanyRepository;
 import wanted.domain.Job;
 import wanted.domain.JobRepository;
+import wanted.service.dto.request.JobSaveRequest;
+import wanted.service.dto.request.JobUpdateRequest;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -22,17 +24,22 @@ public class JobService {
 	private final CompanyRepository companyRepository;
 
 	@Transactional
-	public Long save(Long companyId, Job job) {
-		Company savedCompany = findCompanyById(companyId);
+	public Long save(JobSaveRequest request) {
+		Company savedCompany = findCompanyById(request.getCompanyId());
+		Job job = new Job(
+			savedCompany, request.getPosition(), request.getCompensation(), request.getDescription(),
+			request.getTechStack()
+		);
+
 		job.assignCompany(savedCompany);
 		Job savedJob = jobRepository.save(job);
 		return savedJob.getId();
 	}
 
 	@Transactional
-	public void update(Job job) {
-		Job savedJob = findJobById(job.getId());
-		savedJob.update(job.getPosition(), job.getCompensation(), job.getDescription(), job.getTechStack());
+	public void update(Long id, JobUpdateRequest request) {
+		Job savedJob = findJobById(id);
+		savedJob.update(request.getPosition(), request.getCompensation(), request.getDescription(), request.getTechStack());
 	}
 
 	@Transactional
