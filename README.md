@@ -203,3 +203,26 @@ HTTP/1.1 200 OK
 | description  | String  | 채용 내용           |
 | techStack    | String  | 사용 기술           |
 | others       | List    | 회사가 올린 다른 채용 공고 |
+
+### 6. 채용공고 지원
+
+***Request***
+
+```json
+POST /jobs/1/apply
+Content-Type: application/json
+
+{
+	"userId" : 1
+}
+```
+
+| 필드     | 타입      | 설명     |
+|--------|---------|--------|
+| userId | Integer | 사용자 id |
+
+***Response***
+
+```json
+HTTP/1.1 200 Ok
+```
