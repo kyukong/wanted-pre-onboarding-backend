@@ -3,6 +3,7 @@ package wanted.service;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
+import static wanted.fixture.CompanyFixture.*;
 import static wanted.fixture.JobFixture.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import wanted.domain.Job;
 import wanted.domain.JobRepository;
 import wanted.exception.WantedException;
 import wanted.service.dto.request.JobSaveRequest;
+import wanted.service.dto.request.JobSearchRequest;
 import wanted.service.dto.request.JobUpdateRequest;
 import wanted.service.dto.request.PagingRequest;
 import wanted.service.dto.response.JobDetailResponse;
@@ -143,14 +145,17 @@ class JobServiceTest {
 		void success() {
 			int page = 1;
 			int size = 10;
-			PagingRequest request = new PagingRequest(page, size);
+			String companyName = "원티드";
+			String techStack = "Python";
+			JobSearchRequest request = new JobSearchRequest(companyName, techStack);
+			PagingRequest pagingRequest = new PagingRequest(page, size);
 
-			Job savedJob = WANDTED_BACKEND.toPersistedDomain(1L);
+			Job savedJob = BACKEND.toPersistedDomain(1L, WANTED.toPersistedDomain(1L));
 			List<Job> savedJobs = List.of(savedJob);
-			given(jobRepository.findAll(PageRequest.of(page - 1, size)))
+			given(jobRepository.findAllBySearch(PageRequest.of(page - 1, size), companyName, techStack))
 				.willReturn(new PageImpl<>(savedJobs));
 
-			PagingResponse<JobResponse> responses = jobService.findAll(request);
+			PagingResponse<JobResponse> responses = jobService.findAll(request, pagingRequest);
 
 			assertAll(
 				() -> assertThat(responses.getPage()).isEqualTo(page),

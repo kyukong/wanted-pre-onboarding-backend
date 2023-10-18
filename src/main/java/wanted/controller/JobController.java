@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import wanted.service.JobService;
 import wanted.service.dto.request.JobSaveRequest;
+import wanted.service.dto.request.JobSearchRequest;
 import wanted.service.dto.request.JobUpdateRequest;
 import wanted.service.dto.request.PagingRequest;
 import wanted.service.dto.response.JobDetailResponse;
@@ -48,8 +49,10 @@ public class JobController {
 	}
 
 	@GetMapping
-	public ResponseEntity<PagingResponse<JobResponse>> findAll(@ModelAttribute PagingRequest request) {
-		PagingResponse<JobResponse> responses = jobService.findAll(request);
+	public ResponseEntity<PagingResponse<JobResponse>> findAll(
+		@ModelAttribute JobSearchRequest request, @ModelAttribute PagingRequest pagingRequest
+	) {
+		PagingResponse<JobResponse> responses = jobService.findAll(request, pagingRequest);
 		return ResponseEntity.ok().body(responses);
 	}
 

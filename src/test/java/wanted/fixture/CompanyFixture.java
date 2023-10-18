@@ -20,4 +20,8 @@ public enum CompanyFixture {
 	public Company toDomain() {
 		return new Company(null, name, country, region);
 	}
+
+	public Company toPersistedDomain(long id) {
+		return new Company(id, name, country, region);
+	}
 }

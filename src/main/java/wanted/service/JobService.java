@@ -14,6 +14,7 @@ import wanted.domain.Job;
 import wanted.domain.JobRepository;
 import wanted.exception.WantedException;
 import wanted.service.dto.request.JobSaveRequest;
+import wanted.service.dto.request.JobSearchRequest;
 import wanted.service.dto.request.JobUpdateRequest;
 import wanted.service.dto.request.PagingRequest;
 import wanted.service.dto.response.JobDetailResponse;
@@ -53,12 +54,15 @@ public class JobService {
 		jobRepository.delete(savedJob);
 	}
 
-	public PagingResponse<JobResponse> findAll(PagingRequest request) {
-		Page<Job> jobs = jobRepository.findAll(PageRequest.of(request.getPage() - 1, request.getSize()));
+	public PagingResponse<JobResponse> findAll(JobSearchRequest request, PagingRequest pagingRequest) {
+		Page<Job> jobs = jobRepository.findAllBySearch(
+			PageRequest.of(pagingRequest.getPage() - 1, pagingRequest.getSize()),
+			request.getCompany(), request.getTechStack()
+		);
 		List<JobResponse> responses = jobs.getContent().stream()
 			.map(JobResponse::from)
 			.toList();
-		return PagingResponse.of(request.getPage(), request.getSize(), jobs.hasNext(), responses);
+		return PagingResponse.of(pagingRequest.getPage(), pagingRequest.getSize(), jobs.hasNext(), responses);
 	}
 
 	public JobDetailResponse findById(Long id) {

@@ -11,6 +11,7 @@ import wanted.domain.Job;
 @RequiredArgsConstructor
 public enum JobFixture {
 
+	BACKEND(null, null, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python"),
 	WANDTED_BACKEND(null, WANTED.toDomain(), "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python"),
 	;
 
@@ -25,7 +26,15 @@ public enum JobFixture {
 		return new Job(null, company, position, compensation, description, techStack);
 	}
 
+	public Job toDomain(Company company) {
+		return new Job(null, company, position, compensation, description, techStack);
+	}
+
 	public Job toPersistedDomain(long id) {
+		return new Job(id, company, position, compensation, description, techStack);
+	}
+
+	public Job toPersistedDomain(long id, Company company) {
 		return new Job(id, company, position, compensation, description, techStack);
 	}
 }
