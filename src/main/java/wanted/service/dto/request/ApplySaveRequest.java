@@ -1,11 +1,11 @@
 package wanted.service.dto.request;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class ApplySaveRequest {
 
-	private final Long userId;
+	private Long userId;
 }
