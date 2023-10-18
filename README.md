@@ -20,6 +20,8 @@
 
 ## API 설계
 
+### 0. [포스트맨 API 명세서](https://documenter.getpostman.com/view/9434544/2s9YR9XXzd)
+
 ### 1. 채용공고 등록
 
 ***Request***
