@@ -3,7 +3,7 @@ package wanted.service;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
-import static wanted.fixture.CompanyFixture.*;
+import static wanted.fixture.JobFixture.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
-import wanted.domain.Company;
 import wanted.domain.CompanyRepository;
 import wanted.domain.Job;
 import wanted.domain.JobRepository;
@@ -57,9 +56,8 @@ class JobServiceTest {
 			Long companyId = 1L;
 			JobSaveRequest request = new JobSaveRequest(companyId, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 
-			Company company = WANTED.toPersistedDomain(companyId);
-			Job savedJob = new Job(2L, company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
-			given(companyRepository.findById(companyId)).willReturn(Optional.of(company));
+			Job savedJob = WANDTED_BACKEND.toPersistedDomain(2L);
+			given(companyRepository.findById(companyId)).willReturn(Optional.of(savedJob.getCompany()));
 			given(jobRepository.save(any())).willReturn(savedJob);
 
 			Long savedJobId = jobService.save(request);
@@ -89,8 +87,7 @@ class JobServiceTest {
 			Long id = 1L;
 			JobUpdateRequest request = new JobUpdateRequest("백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 
-			Company company = WANTED.toPersistedDomain(2L);
-			Job savedJob = new Job(id, company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
+			Job savedJob = WANDTED_BACKEND.toPersistedDomain(id);
 			given(jobRepository.findById(id)).willReturn(Optional.of(savedJob));
 
 			assertThatCode(() -> jobService.update(id, request))
@@ -118,8 +115,7 @@ class JobServiceTest {
 		void success() {
 			Long id = 1L;
 
-			Company company = WANTED.toPersistedDomain(2L);
-			Job savedJob = new Job(id, company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
+			Job savedJob = WANDTED_BACKEND.toPersistedDomain(id);
 			given(jobRepository.findById(id)).willReturn(Optional.of(savedJob));
 			doNothing().when(jobRepository).delete(savedJob);
 
@@ -149,8 +145,7 @@ class JobServiceTest {
 			int size = 10;
 			PagingRequest request = new PagingRequest(page, size);
 
-			Company company = WANTED.toPersistedDomain(2L);
-			Job savedJob = new Job(1L, company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
+			Job savedJob = WANDTED_BACKEND.toPersistedDomain(1L);
 			List<Job> savedJobs = List.of(savedJob);
 			given(jobRepository.findAll(PageRequest.of(page - 1, size)))
 				.willReturn(new PageImpl<>(savedJobs));
@@ -174,8 +169,7 @@ class JobServiceTest {
 		void success() {
 			Long id = 1L;
 
-			Company company = WANTED.toPersistedDomain(2L);
-			Job savedJob = new Job(id, company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
+			Job savedJob = WANDTED_BACKEND.toPersistedDomain(id);
 			given(jobRepository.findById(id)).willReturn(Optional.of(savedJob));
 
 			JobDetailResponse response = jobService.findById(id);

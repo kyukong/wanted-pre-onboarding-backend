@@ -3,6 +3,7 @@ package wanted.domain;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static wanted.fixture.CompanyFixture.*;
+import static wanted.fixture.JobFixture.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,13 +17,11 @@ import wanted.exception.WantedException;
 @DisplayName("Job 클래스의")
 class JobTest {
 
-	private Company company;
 	private Job job;
 
 	@BeforeEach
 	void setUp() {
-		company = WANTED.toDomain();
-		job = new Job(company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
+		job = WANDTED_BACKEND.toDomain();
 	}
 
 	@DisplayName("생성자는")
@@ -32,11 +31,7 @@ class JobTest {
 		@DisplayName("객체를 생성한다")
 		@Test
 		void success() {
-			Company company = WANTED.toDomain();
-
-			assertThatCode(
-				() -> new Job(company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python")
-			).doesNotThrowAnyException();
+			assertThatCode(WANDTED_BACKEND::toDomain).doesNotThrowAnyException();
 		}
 
 		@DisplayName("채용 보상금이 기준치보다 적을 경우 예외가 발생한다")

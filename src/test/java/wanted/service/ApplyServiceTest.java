@@ -2,7 +2,7 @@ package wanted.service;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
-import static wanted.fixture.CompanyFixture.*;
+import static wanted.fixture.JobFixture.*;
 import static wanted.fixture.UserFixture.*;
 
 import java.util.Optional;
@@ -16,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import wanted.domain.ApplyRepository;
-import wanted.domain.Company;
 import wanted.domain.Job;
 import wanted.domain.JobRepository;
 import wanted.domain.User;
@@ -55,8 +54,7 @@ class ApplyServiceTest {
 			Long userId = 2L;
 			ApplySaveRequest request = new ApplySaveRequest(userId);
 
-			Company savedCompany = WANTED.toPersistedDomain(1L);
-			Job savedJob = new Job(2L, savedCompany, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
+			Job savedJob = WANDTED_BACKEND.toPersistedDomain(2L);
 			given(jobRepository.findById(jobId)).willReturn(Optional.of(savedJob));
 
 			User savedUser = USER1.toDomain();
@@ -85,8 +83,7 @@ class ApplyServiceTest {
 			Long notExistUserId = 2L;
 			ApplySaveRequest request = new ApplySaveRequest(notExistUserId);
 
-			Company savedCompany = WANTED.toPersistedDomain(1L);
-			Job savedJob = new Job(2L, savedCompany, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
+			Job savedJob = WANDTED_BACKEND.toPersistedDomain(2L);
 			given(jobRepository.findById(jobId)).willReturn(Optional.of(savedJob));
 
 			assertThatThrownBy(() -> applyService.apply(jobId, request))
@@ -101,8 +98,7 @@ class ApplyServiceTest {
 			Long userId = 2L;
 			ApplySaveRequest request = new ApplySaveRequest(userId);
 
-			Company savedCompany = WANTED.toPersistedDomain(1L);
-			Job savedJob = new Job(2L, savedCompany, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
+			Job savedJob = WANDTED_BACKEND.toPersistedDomain(2L);
 			given(jobRepository.findById(jobId)).willReturn(Optional.of(savedJob));
 
 			User savedUser = USER1.toDomain();

@@ -1,7 +1,7 @@
 package wanted.domain;
 
 import static org.assertj.core.api.Assertions.*;
-import static wanted.fixture.CompanyFixture.*;
+import static wanted.fixture.JobFixture.*;
 
 import java.util.List;
 
@@ -27,18 +27,15 @@ public class JobRepositoryTest {
 		@DisplayName("회사의 다른 채용 공고 목록을 조회한다")
 		@Test
 		void success() {
-			Company company = WANTED.toDomain();
-			Job job = new Job(company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
+			Job job = WANDTED_BACKEND.toDomain();
 			Job savedJob = jobRepository.save(job);
 
 			int count = 3;
 			for (int i = 0; i < count; i++) {
-				jobRepository.save(
-					new Job(company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python")
-				);
+				jobRepository.save(WANDTED_BACKEND.toDomain());
 			}
 
-			List<Long> ids = jobRepository.findIdsByIdAndCompanyId(savedJob.getId(), company);
+			List<Long> ids = jobRepository.findIdsByIdAndCompanyId(savedJob.getId(), job.getCompany());
 
 			assertThat(ids.size()).isEqualTo(count);
 		}
