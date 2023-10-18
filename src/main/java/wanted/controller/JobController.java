@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,13 +30,13 @@ public class JobController {
 	private final JobService jobService;
 
 	@PostMapping
-	public ResponseEntity<Void> save(@ModelAttribute JobSaveRequest request) {
+	public ResponseEntity<Void> save(@RequestBody JobSaveRequest request) {
 		Long saveJobId = jobService.save(request);
 		return ResponseEntity.created(URI.create("/jobs/" + saveJobId)).build();
 	}
 
 	@PutMapping("/{jobId}")
-	public ResponseEntity<Void> update(@PathVariable Long jobId, @ModelAttribute JobUpdateRequest request) {
+	public ResponseEntity<Void> update(@PathVariable Long jobId, @RequestBody JobUpdateRequest request) {
 		jobService.update(jobId, request);
 		return ResponseEntity.ok().build();
 	}
