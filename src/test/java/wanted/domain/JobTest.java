@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import wanted.exception.WantedException;
@@ -36,8 +37,9 @@ class JobTest {
 
 		@DisplayName("채용 보상금이 기준치보다 적을 경우 예외가 발생한다")
 		@ParameterizedTest
+		@NullSource
 		@ValueSource(ints = {-1, 0})
-		void compensationIsUnderThanStandard(int compensation) {
+		void compensationIsUnderThanStandard(Integer compensation) {
 			Company company = WANTED.toDomain();
 
 			assertThatThrownBy(

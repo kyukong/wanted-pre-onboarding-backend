@@ -34,7 +34,7 @@ public class Job {
 	private String description;
 	private String techStack;
 
-	public Job(Long id, Company company, String position, int compensation, String description, String techStack) {
+	public Job(Long id, Company company, String position, Integer compensation, String description, String techStack) {
 		validateCompensationIsOverThanStandard(compensation);
 		validateDescriptionLengthIsUnderThanStandard(description);
 
@@ -46,7 +46,7 @@ public class Job {
 		this.techStack = techStack;
 	}
 
-	public Job(Company company, String position, int compensation, String description, String techStack) {
+	public Job(Company company, String position, Integer compensation, String description, String techStack) {
 		this(null, company, position, compensation, description, techStack);
 	}
 
@@ -54,7 +54,7 @@ public class Job {
 		this.company = company;
 	}
 
-	public void update(String position, int compensation, String description, String techStack) {
+	public void update(String position, Integer compensation, String description, String techStack) {
 		validateCompensationIsOverThanStandard(compensation);
 		validateDescriptionLengthIsUnderThanStandard(description);
 
@@ -64,8 +64,8 @@ public class Job {
 		this.techStack = techStack;
 	}
 
-	private void validateCompensationIsOverThanStandard(int compensation) {
-		if (compensation <= COMPENSATION_MAXIMUM) {
+	private void validateCompensationIsOverThanStandard(Integer compensation) {
+		if (compensation == null || compensation <= COMPENSATION_MAXIMUM) {
 			throw new WantedException(String.format("채용 보상금은 %d원 이상이어야 합니다.", COMPENSATION_MAXIMUM));
 		}
 	}
