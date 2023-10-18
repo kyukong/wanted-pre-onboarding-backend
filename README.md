@@ -10,10 +10,10 @@
 - [고려사항](#고려사항)
 
 ## 기술스택
-- Java
-- Spring Boot
-- JPA
-- MySQL
+- Java 17
+- Spring Boot 3.1.2
+- JPA 3.1.2
+- MySQL 8.0.33
 
 ## ERD
 
