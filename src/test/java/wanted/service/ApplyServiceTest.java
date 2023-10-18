@@ -91,5 +91,26 @@ class ApplyServiceTest {
 				.isInstanceOf(WantedException.class)
 				.hasMessage("존재하지 않는 사용자입니다.");
 		}
+
+		@DisplayName("채용 공고에 지원한 내역이 있을 경우 예외가 발생한다")
+		@Test
+		void userIsAlreadyApplied() {
+			Long jobId = 1L;
+			Long userId = 2L;
+			ApplySaveRequest request = new ApplySaveRequest(userId);
+
+			Company savedCompany = new Company(1L, "원티드", "한국", "서울");
+			Job savedJob = new Job(2L, savedCompany, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
+			given(jobRepository.findById(jobId)).willReturn(Optional.of(savedJob));
+
+			User savedUser = new User("김티드");
+			given(userRepository.findById(userId)).willReturn(Optional.of(savedUser));
+
+			given(applyRepository.existsByJobIdAndUserId(any(), any())).willReturn(true);
+
+			assertThatThrownBy(() -> applyService.apply(jobId, request))
+				.isInstanceOf(WantedException.class)
+				.hasMessage("지원한 채용 공고입니다.");
+		}
 	}
 }

@@ -26,8 +26,16 @@ public class ApplyService {
 	public void apply(Long jobId, ApplySaveRequest request) {
 		Job savedJob = findJobById(jobId);
 		User savedUser = findUserById(request.getUserId());
+		validateUserIsNotApplied(savedJob, savedUser);
+
 		Apply apply = new Apply(savedJob.getId(), savedUser.getId());
 		applyRepository.save(apply);
+	}
+
+	private void validateUserIsNotApplied(Job savedJob, User savedUser) {
+		if (applyRepository.existsByJobIdAndUserId(savedJob.getId(), savedUser.getId())) {
+			throw new WantedException("지원한 채용 공고입니다.");
+		}
 	}
 
 	private Job findJobById(Long id) {
