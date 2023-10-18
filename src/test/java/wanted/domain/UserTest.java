@@ -1,6 +1,7 @@
 package wanted.domain;
 
 import static org.assertj.core.api.Assertions.*;
+import static wanted.fixture.UserFixture.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -16,7 +17,7 @@ class UserTest {
 		@DisplayName("객체를 생성한다")
 		@Test
 		void success() {
-			assertThatCode(() -> new User("김티드"))
+			assertThatCode(USER1::toDomain)
 				.doesNotThrowAnyException();
 		}
 	}

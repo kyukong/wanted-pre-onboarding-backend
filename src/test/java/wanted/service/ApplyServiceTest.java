@@ -2,6 +2,7 @@ package wanted.service;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
+import static wanted.fixture.UserFixture.*;
 
 import java.util.Optional;
 
@@ -57,7 +58,7 @@ class ApplyServiceTest {
 			Job savedJob = new Job(2L, savedCompany, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			given(jobRepository.findById(jobId)).willReturn(Optional.of(savedJob));
 
-			User savedUser = new User("김티드");
+			User savedUser = USER1.toDomain();
 			given(userRepository.findById(userId)).willReturn(Optional.of(savedUser));
 
 			assertThatCode(() -> applyService.apply(jobId, request))
@@ -103,7 +104,7 @@ class ApplyServiceTest {
 			Job savedJob = new Job(2L, savedCompany, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			given(jobRepository.findById(jobId)).willReturn(Optional.of(savedJob));
 
-			User savedUser = new User("김티드");
+			User savedUser = USER1.toDomain();
 			given(userRepository.findById(userId)).willReturn(Optional.of(savedUser));
 
 			given(applyRepository.existsByJobIdAndUserId(any(), any())).willReturn(true);
