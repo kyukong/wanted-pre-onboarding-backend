@@ -1,8 +1,16 @@
 alter table job drop foreign key FK5q04favsasq8y70bsei7wv8fc;
 
+drop table if exists apply cascade;
 drop table if exists company cascade;
 drop table if exists job cascade;
 drop table if exists users cascade;
+
+create table apply (
+    id bigint not null auto_increment,
+    job_id bigint not null,
+    user_id bigint not null,
+    primary key (id)
+) engine=InnoDB;
 
 create table company (
     id bigint not null auto_increment,
