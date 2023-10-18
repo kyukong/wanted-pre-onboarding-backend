@@ -12,6 +12,7 @@ import wanted.domain.Company;
 import wanted.domain.CompanyRepository;
 import wanted.domain.Job;
 import wanted.domain.JobRepository;
+import wanted.exception.WantedException;
 import wanted.service.dto.request.JobSaveRequest;
 import wanted.service.dto.request.JobUpdateRequest;
 import wanted.service.dto.request.PagingRequest;
@@ -68,11 +69,11 @@ public class JobService {
 
 	private Job findJobById(Long id) {
 		return jobRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 채용 공고입니다."));
+			.orElseThrow(() -> new WantedException("존재하지 않는 채용 공고입니다."));
 	}
 
 	private Company findCompanyById(Long id) {
 		return companyRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회사입니다."));
+			.orElseThrow(() -> new WantedException("존재하지 않는 회사입니다."));
 	}
 }

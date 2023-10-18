@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import wanted.exception.WantedException;
+
 @DisplayName("Job 클래스의")
 class JobTest {
 
@@ -44,7 +46,7 @@ class JobTest {
 
 			assertThatThrownBy(
 				() -> new Job(company, "백엔드 개발자", compensation, "주니어 개발자 채용", "Python")
-			).isInstanceOf(IllegalArgumentException.class)
+			).isInstanceOf(WantedException.class)
 				.hasMessageContaining("채용 보상금은")
 				.hasMessageContaining("원 이상이어야 합니다.");
 		}
@@ -58,7 +60,7 @@ class JobTest {
 
 			assertThatThrownBy(
 				() -> new Job(company, "백엔드 개발자", 1_000_000, description, "Python")
-			).isInstanceOf(IllegalArgumentException.class)
+			).isInstanceOf(WantedException.class)
 				.hasMessageContaining("채용 공고의 길이는")
 				.hasMessageContaining("자 이하로 작성해주세요.");
 		}
@@ -108,7 +110,7 @@ class JobTest {
 
 			assertThatThrownBy(
 				() -> job.update("시니어 백엔드 개발자", compensation, "주니어가 아닌 시니어 백엔드 개발자 채용", "Flask")
-			).isInstanceOf(IllegalArgumentException.class)
+			).isInstanceOf(WantedException.class)
 				.hasMessageContaining("채용 보상금은")
 				.hasMessageContaining("원 이상이어야 합니다.");
 		}
@@ -120,7 +122,7 @@ class JobTest {
 
 			assertThatThrownBy(
 				() -> job.update("시니어 백엔드 개발자", 10_000_000, description, "Flask")
-			).isInstanceOf(IllegalArgumentException.class)
+			).isInstanceOf(WantedException.class)
 				.hasMessageContaining("채용 공고의 길이는")
 				.hasMessageContaining("자 이하로 작성해주세요.");
 		}

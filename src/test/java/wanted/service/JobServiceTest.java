@@ -21,6 +21,7 @@ import wanted.domain.Company;
 import wanted.domain.CompanyRepository;
 import wanted.domain.Job;
 import wanted.domain.JobRepository;
+import wanted.exception.WantedException;
 import wanted.service.dto.request.JobSaveRequest;
 import wanted.service.dto.request.JobUpdateRequest;
 import wanted.service.dto.request.PagingRequest;
@@ -72,7 +73,7 @@ class JobServiceTest {
 			JobSaveRequest request = new JobSaveRequest(notExistCompanyId, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 
 			assertThatThrownBy(() -> jobService.save(request))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(WantedException.class)
 				.hasMessage("존재하지 않는 회사입니다.");
 		}
 	}
@@ -102,7 +103,7 @@ class JobServiceTest {
 			JobUpdateRequest request = new JobUpdateRequest("백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 
 			assertThatThrownBy(() -> jobService.update(notExistJobId, request))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(WantedException.class)
 				.hasMessage("존재하지 않는 채용 공고입니다.");
 		}
 	}
@@ -131,7 +132,7 @@ class JobServiceTest {
 			Long notExistJobId = 1L;
 
 			assertThatThrownBy(() -> jobService.delete(notExistJobId))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(WantedException.class)
 				.hasMessage("존재하지 않는 채용 공고입니다.");
 		}
 	}
@@ -187,7 +188,7 @@ class JobServiceTest {
 			Long notExistJobId = 1L;
 
 			assertThatThrownBy(() -> jobService.findById(notExistJobId))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(WantedException.class)
 				.hasMessage("존재하지 않는 채용 공고입니다.");
 		}
 	}

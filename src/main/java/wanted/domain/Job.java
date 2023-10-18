@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import wanted.exception.WantedException;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -65,13 +66,13 @@ public class Job {
 
 	private void validateCompensationIsOverThanStandard(int compensation) {
 		if (compensation <= COMPENSATION_MAXIMUM) {
-			throw new IllegalArgumentException(String.format("채용 보상금은 %d원 이상이어야 합니다.", COMPENSATION_MAXIMUM));
+			throw new WantedException(String.format("채용 보상금은 %d원 이상이어야 합니다.", COMPENSATION_MAXIMUM));
 		}
 	}
 
 	private void validateDescriptionLengthIsUnderThanStandard(String description) {
 		if (description.length() > DESCRIPTION_LENGTH) {
-			throw new IllegalArgumentException(String.format("채용 공고의 길이는 %d자 이하로 작성해주세요.", DESCRIPTION_LENGTH));
+			throw new WantedException(String.format("채용 공고의 길이는 %d자 이하로 작성해주세요.", DESCRIPTION_LENGTH));
 		}
 	}
 }

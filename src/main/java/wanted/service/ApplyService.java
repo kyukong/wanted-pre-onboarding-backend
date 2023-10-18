@@ -10,6 +10,7 @@ import wanted.domain.Job;
 import wanted.domain.JobRepository;
 import wanted.domain.User;
 import wanted.domain.UserRepository;
+import wanted.exception.WantedException;
 import wanted.service.dto.request.ApplySaveRequest;
 
 @RequiredArgsConstructor
@@ -31,11 +32,11 @@ public class ApplyService {
 
 	private Job findJobById(Long id) {
 		return jobRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 채용 공고입니다."));
+			.orElseThrow(() -> new WantedException("존재하지 않는 채용 공고입니다."));
 	}
 
 	private User findUserById(Long id) {
 		return userRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+			.orElseThrow(() -> new WantedException("존재하지 않는 사용자입니다."));
 	}
 }

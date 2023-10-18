@@ -19,6 +19,7 @@ import wanted.domain.Job;
 import wanted.domain.JobRepository;
 import wanted.domain.User;
 import wanted.domain.UserRepository;
+import wanted.exception.WantedException;
 import wanted.service.dto.request.ApplySaveRequest;
 
 @DisplayName("ApplyService 클래스의")
@@ -71,7 +72,7 @@ class ApplyServiceTest {
 			ApplySaveRequest request = new ApplySaveRequest(userId);
 
 			assertThatThrownBy(() -> applyService.apply(notExistJobId, request))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(WantedException.class)
 				.hasMessage("존재하지 않는 채용 공고입니다.");
 		}
 
@@ -87,7 +88,7 @@ class ApplyServiceTest {
 			given(jobRepository.findById(jobId)).willReturn(Optional.of(savedJob));
 
 			assertThatThrownBy(() -> applyService.apply(jobId, request))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(WantedException.class)
 				.hasMessage("존재하지 않는 사용자입니다.");
 		}
 	}
