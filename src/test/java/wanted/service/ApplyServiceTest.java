@@ -19,6 +19,7 @@ import wanted.domain.Job;
 import wanted.domain.JobRepository;
 import wanted.domain.User;
 import wanted.domain.UserRepository;
+import wanted.service.dto.request.ApplySaveRequest;
 
 @DisplayName("ApplyService 클래스의")
 @ExtendWith(MockitoExtension.class)
@@ -49,6 +50,7 @@ class ApplyServiceTest {
 		void success() {
 			Long jobId = 1L;
 			Long userId = 2L;
+			ApplySaveRequest request = new ApplySaveRequest(userId);
 
 			Company savedCompany = new Company(1L, "원티드", "한국", "서울");
 			Job savedJob = new Job(2L, savedCompany, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
@@ -57,7 +59,7 @@ class ApplyServiceTest {
 			User savedUser = new User("김티드");
 			given(userRepository.findById(userId)).willReturn(Optional.of(savedUser));
 
-			assertThatCode(() -> applyService.apply(jobId, userId))
+			assertThatCode(() -> applyService.apply(jobId, request))
 				.doesNotThrowAnyException();
 		}
 
@@ -66,8 +68,9 @@ class ApplyServiceTest {
 		void jobIsNotExist() {
 			Long notExistJobId = 1L;
 			Long userId = 2L;
+			ApplySaveRequest request = new ApplySaveRequest(userId);
 
-			assertThatThrownBy(() -> applyService.apply(notExistJobId, userId))
+			assertThatThrownBy(() -> applyService.apply(notExistJobId, request))
 				.isInstanceOf(IllegalArgumentException.class)
 				.hasMessage("존재하지 않는 채용 공고입니다.");
 		}
@@ -77,12 +80,13 @@ class ApplyServiceTest {
 		void userIsNotExist() {
 			Long jobId = 1L;
 			Long notExistUserId = 2L;
+			ApplySaveRequest request = new ApplySaveRequest(notExistUserId);
 
 			Company savedCompany = new Company(1L, "원티드", "한국", "서울");
 			Job savedJob = new Job(2L, savedCompany, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			given(jobRepository.findById(jobId)).willReturn(Optional.of(savedJob));
 
-			assertThatThrownBy(() -> applyService.apply(jobId, notExistUserId))
+			assertThatThrownBy(() -> applyService.apply(jobId, request))
 				.isInstanceOf(IllegalArgumentException.class)
 				.hasMessage("존재하지 않는 사용자입니다.");
 		}

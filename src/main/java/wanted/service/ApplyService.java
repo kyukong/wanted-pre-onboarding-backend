@@ -10,6 +10,7 @@ import wanted.domain.Job;
 import wanted.domain.JobRepository;
 import wanted.domain.User;
 import wanted.domain.UserRepository;
+import wanted.service.dto.request.ApplySaveRequest;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -21,9 +22,9 @@ public class ApplyService {
 	private final UserRepository userRepository;
 
 	@Transactional
-	public void apply(Long jobId, Long userId) {
+	public void apply(Long jobId, ApplySaveRequest request) {
 		Job savedJob = findJobById(jobId);
-		User savedUser = findUserById(userId);
+		User savedUser = findUserById(request.getUserId());
 		Apply apply = new Apply(savedJob.getId(), savedUser.getId());
 		applyRepository.save(apply);
 	}
