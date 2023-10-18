@@ -103,7 +103,7 @@ HTTP/1.1 200 OK
 ***Request***
 
 ```json
-GET /jobs?page=1&size=10
+GET /jobs?page=1&size=10&company=원티드&techStack=Python
 ```
 
 | 파라미터 | 타입      | 설명                  |
@@ -117,33 +117,23 @@ GET /jobs?page=1&size=10
 HTTP/1.1 200 OK
 
 {
-	"page" : 1,
-	"size" : 10,
-	"hasNext": false,
-	"content" : 
-		[
-			{
-				"jobId" : 1,
-				"companyId" : 1,
-				"companyName" : "원티드랩",
-				"country" : "한국",
-				"region" : "서울",
-				"position" : "백엔드 주니어 개발자",
-				"compensation" : 1500000,
-				"techStack" : "Python"
-			},
-			{
-				"jobId" : 2,
-				"companyId" : 5,
-				"companyName" : "네이버",
-				"country" : "한국",
-				"region" : "판교",
-				"position" : "Django 주니어 개발자",
-				"compensation" : 1000000,
-				"techStack" : "Django"
-			},
-			...
-		]
+  "page" : 1,
+  "size" : 10,
+  "hasNext": false,
+  "content" :
+  [
+    {
+      "jobId" : 1,
+      "companyId" : 1,
+      "companyName" : "원티드랩",
+      "country" : "한국",
+      "region" : "서울",
+      "position" : "백엔드 주니어 개발자",
+      "compensation" : 1500000,
+      "techStack" : "Python"
+    },
+    ...
+  ]
 }
 ```
 
