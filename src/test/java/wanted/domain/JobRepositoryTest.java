@@ -20,9 +20,9 @@ public class JobRepositoryTest {
 	@Autowired
 	private JobRepository jobRepository;
 
-	@DisplayName("findIdsByIdAndCompanyId 메서드는")
+	@DisplayName("findIdsByIdAndCompany 메서드는")
 	@Nested
-	class findIdsByIdAndCompanyId {
+	class findIdsByIdAndCompany {
 
 		@DisplayName("회사의 다른 채용 공고 목록을 조회한다")
 		@Test
@@ -35,7 +35,7 @@ public class JobRepositoryTest {
 				jobRepository.save(WANDTED_BACKEND.toDomain());
 			}
 
-			List<Long> ids = jobRepository.findIdsByIdAndCompanyId(savedJob.getId(), job.getCompany());
+			List<Long> ids = jobRepository.findIdsByIdAndCompany(savedJob.getId(), job.getCompany());
 
 			assertThat(ids.size()).isEqualTo(count);
 		}

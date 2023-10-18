@@ -63,7 +63,7 @@ public class JobService {
 
 	public JobDetailResponse findById(Long id) {
 		Job savedJob = findJobById(id);
-		List<Long> otherJobIds = jobRepository.findIdsByIdAndCompanyId(id, savedJob.getCompany());
+		List<Long> otherJobIds = jobRepository.findIdsByIdAndCompany(id, savedJob.getCompany());
 		return JobDetailResponse.of(savedJob, otherJobIds);
 	}
 

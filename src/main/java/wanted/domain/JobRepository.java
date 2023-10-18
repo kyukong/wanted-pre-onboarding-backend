@@ -14,5 +14,5 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 			where j.id != :id and j.company = :company
 		"""
 	)
-	List<Long> findIdsByIdAndCompanyId(Long id, Company company);
+	List<Long> findIdsByIdAndCompany(Long id, Company company);
 }
