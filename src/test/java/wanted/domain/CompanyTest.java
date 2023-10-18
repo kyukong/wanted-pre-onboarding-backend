@@ -1,6 +1,7 @@
 package wanted.domain;
 
 import static org.assertj.core.api.Assertions.*;
+import static wanted.fixture.CompanyFixture.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -16,9 +17,7 @@ class CompanyTest {
 		@DisplayName("객체를 생성한다")
 		@Test
 		void success() {
-			assertThatCode(
-				() -> new Company("원티드", "한국", "서울")
-			).doesNotThrowAnyException();
+			assertThatCode(WANTED::toDomain).doesNotThrowAnyException();
 		}
 	}
 }

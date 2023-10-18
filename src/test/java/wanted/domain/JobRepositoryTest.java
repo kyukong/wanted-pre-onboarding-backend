@@ -1,6 +1,7 @@
 package wanted.domain;
 
 import static org.assertj.core.api.Assertions.*;
+import static wanted.fixture.CompanyFixture.*;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class JobRepositoryTest {
 		@DisplayName("회사의 다른 채용 공고 목록을 조회한다")
 		@Test
 		void success() {
-			Company company = new Company("원티드", "한국", "서울");
+			Company company = WANTED.toDomain();
 			Job job = new Job(company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			Job savedJob = jobRepository.save(job);
 

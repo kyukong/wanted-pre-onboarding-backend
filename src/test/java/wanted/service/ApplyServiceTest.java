@@ -2,6 +2,7 @@ package wanted.service;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
+import static wanted.fixture.CompanyFixture.*;
 import static wanted.fixture.UserFixture.*;
 
 import java.util.Optional;
@@ -54,7 +55,7 @@ class ApplyServiceTest {
 			Long userId = 2L;
 			ApplySaveRequest request = new ApplySaveRequest(userId);
 
-			Company savedCompany = new Company(1L, "원티드", "한국", "서울");
+			Company savedCompany = WANTED.toPersistedDomain(1L);
 			Job savedJob = new Job(2L, savedCompany, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			given(jobRepository.findById(jobId)).willReturn(Optional.of(savedJob));
 
@@ -84,7 +85,7 @@ class ApplyServiceTest {
 			Long notExistUserId = 2L;
 			ApplySaveRequest request = new ApplySaveRequest(notExistUserId);
 
-			Company savedCompany = new Company(1L, "원티드", "한국", "서울");
+			Company savedCompany = WANTED.toPersistedDomain(1L);
 			Job savedJob = new Job(2L, savedCompany, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			given(jobRepository.findById(jobId)).willReturn(Optional.of(savedJob));
 
@@ -100,7 +101,7 @@ class ApplyServiceTest {
 			Long userId = 2L;
 			ApplySaveRequest request = new ApplySaveRequest(userId);
 
-			Company savedCompany = new Company(1L, "원티드", "한국", "서울");
+			Company savedCompany = WANTED.toPersistedDomain(1L);
 			Job savedJob = new Job(2L, savedCompany, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			given(jobRepository.findById(jobId)).willReturn(Optional.of(savedJob));
 

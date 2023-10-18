@@ -2,6 +2,7 @@ package wanted.domain;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static wanted.fixture.CompanyFixture.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +21,7 @@ class JobTest {
 
 	@BeforeEach
 	void setUp() {
-		company = new Company("원티드", "한국", "서울");
+		company = WANTED.toDomain();
 		job = new Job(company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 	}
 
@@ -31,7 +32,7 @@ class JobTest {
 		@DisplayName("객체를 생성한다")
 		@Test
 		void success() {
-			Company company = new Company("원티드", "한국", "서울");
+			Company company = WANTED.toDomain();
 
 			assertThatCode(
 				() -> new Job(company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python")
@@ -42,7 +43,7 @@ class JobTest {
 		@ParameterizedTest
 		@ValueSource(ints = {-1, 0})
 		void compensationIsUnderThanStandard(int compensation) {
-			Company company = new Company("원티드", "한국", "서울");
+			Company company = WANTED.toDomain();
 
 			assertThatThrownBy(
 				() -> new Job(company, "백엔드 개발자", compensation, "주니어 개발자 채용", "Python")
@@ -54,7 +55,7 @@ class JobTest {
 		@DisplayName("공고 내용의 길이가 기준치보다 클 경우 예외가 발생한다")
 		@Test
 		void descriptionLengthIsOverThanStandard() {
-			Company company = new Company("원티드", "한국", "서울");
+			Company company = WANTED.toDomain();
 
 			String description = "a".repeat(10000000);
 
@@ -73,7 +74,7 @@ class JobTest {
 		@DisplayName("채용 공고의 회사 정보를 할당한다")
 		@Test
 		void success() {
-			Company otherCompany = new Company("네이버", "한국", "판교");
+			Company otherCompany = NAVER.toDomain();
 
 			job.assignCompany(otherCompany);
 

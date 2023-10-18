@@ -3,6 +3,7 @@ package wanted.service;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
+import static wanted.fixture.CompanyFixture.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,7 +57,7 @@ class JobServiceTest {
 			Long companyId = 1L;
 			JobSaveRequest request = new JobSaveRequest(companyId, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 
-			Company company = new Company(companyId, "원티드", "한국", "서울");
+			Company company = WANTED.toPersistedDomain(companyId);
 			Job savedJob = new Job(2L, company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			given(companyRepository.findById(companyId)).willReturn(Optional.of(company));
 			given(jobRepository.save(any())).willReturn(savedJob);
@@ -88,7 +89,7 @@ class JobServiceTest {
 			Long id = 1L;
 			JobUpdateRequest request = new JobUpdateRequest("백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 
-			Company company = new Company(2L, "원티드", "한국", "서울");
+			Company company = WANTED.toPersistedDomain(2L);
 			Job savedJob = new Job(id, company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			given(jobRepository.findById(id)).willReturn(Optional.of(savedJob));
 
@@ -117,7 +118,7 @@ class JobServiceTest {
 		void success() {
 			Long id = 1L;
 
-			Company company = new Company(2L, "원티드", "한국", "서울");
+			Company company = WANTED.toPersistedDomain(2L);
 			Job savedJob = new Job(id, company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			given(jobRepository.findById(id)).willReturn(Optional.of(savedJob));
 			doNothing().when(jobRepository).delete(savedJob);
@@ -148,7 +149,7 @@ class JobServiceTest {
 			int size = 10;
 			PagingRequest request = new PagingRequest(page, size);
 
-			Company company = new Company(2L, "원티드", "한국", "서울");
+			Company company = WANTED.toPersistedDomain(2L);
 			Job savedJob = new Job(1L, company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			List<Job> savedJobs = List.of(savedJob);
 			given(jobRepository.findAll(PageRequest.of(page - 1, size)))
@@ -173,7 +174,7 @@ class JobServiceTest {
 		void success() {
 			Long id = 1L;
 
-			Company company = new Company(2L, "원티드", "한국", "서울");
+			Company company = WANTED.toPersistedDomain(2L);
 			Job savedJob = new Job(id, company, "백엔드 개발자", 1_000_000, "주니어 개발자 채용", "Python");
 			given(jobRepository.findById(id)).willReturn(Optional.of(savedJob));
 
